@@ -1,0 +1,388 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Educação Brasil — Simulação</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f2f2f2;
+      color: #222;
+      line-height: 1.6;
+    }
+
+    /* Aviso pedagógico */
+    .simulation-banner {
+      background: #b00020;
+      color: white;
+      text-align: center;
+      padding: 12px 20px;
+      font-weight: bold;
+      font-size: 15px;
+      letter-spacing: 0.3px;
+    }
+
+    header {
+      background: white;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .top-bar {
+      max-width: 1100px;
+      margin: auto;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 29px;
+      font-weight: 800;
+      color: #123b6d;
+      letter-spacing: -1px;
+    }
+
+    .logo span {
+      color: #e63946;
+    }
+
+    .date {
+      color: #777;
+      font-size: 13px;
+    }
+
+    nav {
+      border-top: 1px solid #eee;
+    }
+
+    nav .nav-inner {
+      max-width: 1100px;
+      margin: auto;
+      padding: 10px 20px;
+      display: flex;
+      gap: 25px;
+      overflow-x: auto;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #333;
+      font-size: 14px;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    nav a:hover {
+      color: #123b6d;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 35px auto;
+      padding: 0 20px;
+    }
+
+    .category {
+      color: #d62828;
+      text-transform: uppercase;
+      font-size: 13px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 45px;
+      line-height: 1.12;
+      max-width: 950px;
+      margin-bottom: 15px;
+      color: #171717;
+    }
+
+    .subtitle {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 21px;
+      color: #555;
+      max-width: 850px;
+      margin-bottom: 20px;
+    }
+
+    .meta {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 18px;
+      margin-bottom: 25px;
+      color: #777;
+      font-size: 13px;
+    }
+
+    .article-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 280px;
+      gap: 35px;
+    }
+
+    .article {
+      background: white;
+      padding: 30px;
+      border: 1px solid #e3e3e3;
+    }
+
+    .fake-image {
+      width: 100%;
+      height: 310px;
+      background:
+        linear-gradient(rgba(20, 55, 95, 0.7), rgba(20, 55, 95, 0.7)),
+        linear-gradient(135deg, #8aa4c4, #d7dee8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-align: center;
+      font-size: 23px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .caption {
+      font-size: 12px;
+      color: #777;
+      margin-bottom: 25px;
+    }
+
+    .article p {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    .article p:first-of-type::first-letter {
+      font-size: 54px;
+      float: left;
+      line-height: 0.9;
+      padding-right: 7px;
+      font-weight: bold;
+      color: #123b6d;
+    }
+
+    .quote {
+      border-left: 5px solid #123b6d;
+      padding: 15px 20px;
+      margin: 25px 0;
+      background: #f5f7fa;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 20px;
+      font-style: italic;
+    }
+
+    .sidebar {
+      background: white;
+      border: 1px solid #ddd;
+      padding: 20px;
+      height: fit-content;
+    }
+
+    .sidebar h2 {
+      font-size: 18px;
+      margin-bottom: 15px;
+      border-bottom: 3px solid #123b6d;
+      padding-bottom: 8px;
+    }
+
+    .sidebar-item {
+      padding: 12px 0;
+      border-bottom: 1px solid #eee;
+      font-size: 14px;
+    }
+
+    .sidebar-item:last-child {
+      border-bottom: none;
+    }
+
+    .educational-note {
+      background: #fff4cc;
+      border: 1px solid #e2c45c;
+      padding: 18px;
+      margin-top: 30px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 14px;
+    }
+
+    .educational-note strong {
+      display: block;
+      margin-bottom: 7px;
+      color: #765900;
+    }
+
+    footer {
+      margin-top: 50px;
+      background: #17202a;
+      color: #ccc;
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 13px;
+    }
+
+    @media (max-width: 800px) {
+      h1 {
+        font-size: 34px;
+      }
+
+      .article-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        order: 2;
+      }
+
+      .top-bar {
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="simulation-banner">
+    ⚠ SIMULAÇÃO EDUCACIONAL — ESTA NOTÍCIA É FICTÍCIA E FOI CRIADA PARA UMA ATIVIDADE SOBRE FAKE NEWS
+  </div>
+
+  <header>
+    <div class="top-bar">
+      <div class="logo">
+        EDUCAÇÃO<span>BRASIL</span>
+      </div>
+
+      <div class="date">
+        5 de setembro de 2026
+      </div>
+    </div>
+
+    <nav>
+      <div class="nav-inner">
+        <a href="#">Brasil</a>
+        <a href="#">Educação</a>
+        <a href="#">Política</a>
+        <a href="#">Economia</a>
+        <a href="#">Cidades</a>
+        <a href="#">Tecnologia</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+
+    <div class="category">Educação</div>
+
+    <h1>
+      Todas as escolas do Brasil deverão adotar período integral a partir de 1º de outubro
+    </h1>
+
+    <div class="subtitle">
+      Medida anunciada nesta semana teria como objetivo ampliar o tempo de permanência dos estudantes nas instituições de ensino.
+    </div>
+
+    <div class="meta">
+      <span>Da redação</span>
+      <span>•</span>
+      <span>Publicado em 5 de setembro de 2026</span>
+    </div>
+
+    <div class="article-layout">
+
+      <article class="article">
+
+        <div class="fake-image">
+          ESCOLAS EM TEMPO INTEGRAL
+        </div>
+
+        <div class="caption">
+          Imagem ilustrativa produzida para esta atividade pedagógica.
+        </div>
+
+        <p>
+          Todas as escolas públicas e privadas do Brasil deverão funcionar em período integral a partir de 1º de outubro de 2026. A suposta determinação faria parte de uma nova política nacional para ampliar o tempo de permanência dos estudantes nas escolas.
+        </p>
+
+        <p>
+          De acordo com a informação fictícia apresentada nesta simulação, as instituições passariam a oferecer atividades durante todo o dia, incluindo aulas regulares, projetos complementares, atividades culturais e práticas esportivas.
+        </p>
+
+        <div class="quote">
+          “A mudança representaria uma transformação histórica no sistema educacional brasileiro.”
+        </div>
+
+        <p>
+          A medida teria provocado reações entre famílias, professores e gestores escolares. Algumas escolas estariam estudando mudanças em horários, transporte, alimentação e organização das atividades para atender à nova suposta exigência.
+        </p>
+
+        <p>
+          A notícia também afirma que um período de adaptação seria concedido às instituições que não estivessem preparadas para a mudança imediata.
+        </p>
+
+        <p>
+          <strong>Importante:</strong> o conteúdo acima é completamente fictício. A finalidade desta página é demonstrar como uma notícia falsa pode utilizar elementos visuais e textuais para parecer legítima.
+        </p>
+
+        <div class="educational-note">
+          <strong>Objetivo da atividade</strong>
+
+          Analise quais elementos tornam essa publicação aparentemente confiável. 
+          Observe a manchete, o tom jornalístico, a data, a estrutura da página, a linguagem utilizada e a ausência de fontes verificáveis.
+        </div>
+
+      </article>
+
+      <aside class="sidebar">
+
+        <h2>Mais lidas</h2>
+
+        <div class="sidebar-item">
+          Educação: os desafios do ensino brasileiro
+        </div>
+
+        <div class="sidebar-item">
+          Escolas discutem novas formas de aprendizagem
+        </div>
+
+        <div class="sidebar-item">
+          Tecnologia ganha espaço nas salas de aula
+        </div>
+
+        <div class="sidebar-item">
+          Como identificar informações falsas na internet
+        </div>
+
+      </aside>
+
+    </div>
+
+  </main>
+
+  <footer>
+    Página fictícia desenvolvida exclusivamente para fins educacionais.
+    <br>
+    Nenhuma das informações apresentadas constitui notícia real.
+  </footer>
+
+</body>
+</html>
+```
